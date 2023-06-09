@@ -1,0 +1,61 @@
+#include<iostream>
+#include<list>
+#include<vector>
+using namespace std;
+
+
+class Graph{private:
+	int numCities;
+vector<list<int>>adjList;
+
+public:
+	Graph(int cities){ 
+numCities = cities;
+adjList.resize(numCities);
+	}
+
+    void addFlightPath(int source,int destination){
+adjList[source].push_back(destination);
+adjList[destination].push_back(source);
+	}
+	bool isConnected() {   vector<bool>
+visited(numCities,false);
+
+dfs(0,visited);
+for(bool v:visited){
+	if(!v){
+return false;
+	}
+  }
+  return true;  
+}
+
+void dfs(int city,vector<bool>&visited){
+	visited[city] = true;
+
+    for(int neighbour : adjList[city]){
+if        (!visited[neighbour]){
+dfs(neighbour,visited);
+		}
+	}
+  }
+};
+
+
+int main(){
+	Graph graph(6);
+graph.addFlightPath(0,1);
+graph.addFlightPath(1,2);
+graph.addFlightPath(2,3);
+graph.addFlightPath(3,4);
+graph.addFlightPath(4,5);
+
+bool connected = graph.isConnected();
+
+ if (connected) {
+ 	cout<<"The graph is connected."<<endl;
+	  }else{
+	  	cout<<"The graph is not connected."<<endl;	  }
+
+ return 0;
+ }
